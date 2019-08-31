@@ -1,0 +1,39 @@
+Hash: 3120328d8da096c95b87
+Version: webpack 4.39.1
+Time: 3056ms
+Built at: 2019-08-30 19:14:49
+                         Asset      Size  Chunks                    Chunk Names
+0daee8a983d3d1655892.worker.js   161 KiB          [emitted]         
+                      build.js  13.1 MiB    main  [emitted]  [big]  main
+Entrypoint main [big] = build.js
+[../node_modules/css-loader/index.js!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/vue-loader/lib/index.js?!./src/App.vue?vue&type=style&index=0&lang=css&] ../node_modules/css-loader!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=style&index=0&lang=css& 545 bytes {main} [built]
+[../node_modules/vue-loader/lib/index.js?!./src/App.vue?vue&type=script&lang=js&] ../node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=script&lang=js& 588 bytes {main} [built]
+[../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./src/App.vue?vue&type=template&id=7ba5bd90&] ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=7ba5bd90& 413 bytes {main} [built]
+[../node_modules/vue-style-loader/index.js!../node_modules/css-loader/index.js!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/vue-loader/lib/index.js?!./src/App.vue?vue&type=style&index=0&lang=css&] ../node_modules/vue-style-loader!../node_modules/css-loader!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=style&index=0&lang=css& 1.41 KiB {main} [built]
+[../src/main.js] 184 bytes {main} [built]
+[../test/harness/atoll.js] 5.12 MiB {main} [built]
+[./src/App.vue] 1.1 KiB {main} [built]
+[./src/App.vue?vue&type=script&lang=js&] 254 bytes {main} [built]
+[./src/App.vue?vue&type=style&index=0&lang=css&] 560 bytes {main} [built]
+[./src/App.vue?vue&type=template&id=7ba5bd90&] 201 bytes {main} [built]
+[./src/Point.js] 760 bytes {main} [built]
+[./src/convex-hull.js] 2.77 KiB {main} [built]
+[./src/graphHelper.js] 2.21 KiB {main} [built]
+[./src/main.js] 154 bytes {main} [built]
+[./src/mapHelpers.js] 35.2 KiB {main} [built]
+    + 36 hidden modules
+Child worker:
+                             Asset     Size  Chunks             Chunk Names
+    0daee8a983d3d1655892.worker.js  161 KiB    main  [emitted]  main
+    Entrypoint main = 0daee8a983d3d1655892.worker.js
+    [../src/Edge.js] 598 bytes {main} [built]
+    [../src/EdgeKey.js] 1.19 KiB {main} [built]
+    [../src/EdgeKeys.js] 440 bytes {main} [built]
+    [../src/Point.js] 760 bytes {main} [built]
+    [../src/createGraphFromGeoJson.js] 20.9 KiB {main} [built]
+    [../src/debug.js] 1.68 KiB {main} [built]
+    [../src/main.js] 184 bytes {main} [built]
+    [../src/setupStructure.js] 4.04 KiB {main} [built]
+    [../src/utils.js] 2.63 KiB {main} [built]
+    [./src/graphCreation.worker.js] 275 bytes {main} [built]
+        + 3 hidden modules

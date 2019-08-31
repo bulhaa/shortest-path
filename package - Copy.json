@@ -1,0 +1,64 @@
+{
+  "name": "visibility-graph.js",
+  "version": "0.1.2",
+  "description": "A js library for creating visibility graphs",
+  "main": "server.js",
+  // "main": "dist/visibilityGraph.js",
+  "scripts": {
+    "start": "node server.js",
+    // "build:docs": "cross-env webpack --config debug/webpack.config.js --env.NODE_ENV=production --progress --hide-modules",
+    // "build": "rollup -c",
+    // "debug": "cross-env webpack-dev-server --config debug/webpack.config.js --env.NODE_ENV=development --open --hot",
+    // "deleteWorkers": "shx rm debug/*.worker.js",
+    // "prepublish": "npm run build",
+    // "test": "ava --verbose",
+    // "test:e2e": "ava ./test/test.spec.js --verbose",
+    // "test:coverage": "nyc ava"
+    "test": "IP=0.0.0.0 PORT=3030 mocha --timeout 5000 tests/*_test.js"
+  },
+  "author": "Rowan Winsemius",
+  "license": "MIT",
+  "ava": {
+    "files": [
+      "./test/*.spec.js",
+      "!./test/harness/**"
+    ],
+    "require": [
+      "esm"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^1.2.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "eslint": "^3.0.0",
+    "eslint-plugin-vue-libs": "^1.2.0",
+    "esm": "^3.2.5",
+    "file-loader": "^1.1.4",
+    "load-json-file": "^5.2.0",
+    "ngraph.fromjson": "^0.1.9",
+    "ngraph.path": "^1.0.3",
+    "ngraph.tojson": "^0.1.4",
+    "nyc": "^13.3.0",
+    "rollup": "^1.2.1",
+    "rollup-plugin-butternut": "^0.1.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-strip": "^1.2.1",
+    "rollup-plugin-uglify": "^6.0.2",
+    "rollup-watch": "^4.0.0",
+    "shx": "^0.3.2",
+    "ttf-loader": "^1.0.2",
+    "vue": "^2.6.6",
+    "vue-loader": "^15.6.3",
+    "vue-template-compiler": "^2.6.6",
+    "vue-worker": "^1.2.1",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.1.14",
+    "worker-loader": "^2.0.0"
+  },
+  "dependencies": {
+    "ngraph.graph": "0.0.15"
+  }
+}
