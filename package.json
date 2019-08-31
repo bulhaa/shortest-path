@@ -24,7 +24,7 @@
     "start": "node server.js",
     "test": "IP=0.0.0.0 PORT=3030 mocha --timeout 5000 tests/*_test.js",
     "build:docs": "cross-env webpack --config debug/webpack.config.js --env.NODE_ENV=production --progress --hide-modules",
-    "build": "rollup -c",
+    // "build": "rollup -c",
     "debug": "cross-env webpack-dev-server --config debug/webpack.config.js --env.NODE_ENV=development --open --hot",
     "deleteWorkers": "shx rm debug/*.worker.js",
     "prepublish": "npm run build"
