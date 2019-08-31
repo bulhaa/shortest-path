@@ -28,9 +28,6 @@
     "debug": "cross-env webpack-dev-server --config debug/webpack.config.js --env.NODE_ENV=development --open --hot",
     "deleteWorkers": "shx rm debug/*.worker.js",
     "prepublish": "npm run build",
-    // "test": "ava --verbose",
-    // "test:e2e": "ava ./test/test.spec.js --verbose",
-    // "test:coverage": "nyc ava"
   },
   "repository": {
     "type": "git",
