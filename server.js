@@ -99,7 +99,7 @@ var initDb = function(callback) {
 // app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
-app.get('/', function (req, res) {
+app.get('/home', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if (!db) {
@@ -119,6 +119,55 @@ app.get('/', function (req, res) {
     res.render('index.html', { pageCountMessage : null});
   }
 });
+
+app.get('/', function (req, res) {
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    var col = db.collection('counts');
+    // Create a document with request IP and current time of request
+    col.insert({ip: req.ip, date: Date.now()});
+    col.count(function(err, count){
+      if (err) {
+        console.log('Error running count. Message:\n'+err);
+      }
+      res.render('index.html', { pageCountMessage : count });
+    });
+  } else {
+    var file = 1
+    var showMap = 0
+    var asiaData = nodesOnly.data
+
+
+
+    mapHelpers.setupMap(null, null, showMap)
+    mapHelpers.setData(asiaData, showMap)
+    if(showMap)
+      mapHelpers.setupRouteLayer()
+    if(file)
+      var shortestPath = graphHelper.loadGraphFromFile(dataWithEdges.dataWithEdges)
+    else
+      graphHelper.createGraphFromData(asiaData)
+
+    console.log('test');
+    console.log(pageCountMessage);
+    console.log(util.inspect(pageCountMessage));
+    console.log('end');
+
+    var output = ''
+    for (var i = shortestPath.length - 1; i >= 0; i--) {
+      output += shortestPath[i].data.x + ' ' shortestPath[i].data.y + ', ' 
+    }
+
+    res.render('map.html', { output : output});
+  }
+});
+
+
+
 
 app.get('/map', function (req, res) {
   // try to initialize the db on every request if it's not already
@@ -141,12 +190,14 @@ app.get('/map', function (req, res) {
     var showMap = 0
     var asiaData = nodesOnly.data
 
-    mapHelpers.setupMap(null, null, showMap)
+
+
+    mapHelpers.setupMap([req.params.startx, req.params.starty], [req.params.endx, req.params.endy], showMap)
     mapHelpers.setData(asiaData, showMap)
     if(showMap)
       mapHelpers.setupRouteLayer()
     if(file)
-      var pageCountMessage = graphHelper.loadGraphFromFile(dataWithEdges.dataWithEdges)
+      var shortestPath = graphHelper.loadGraphFromFile(dataWithEdges.dataWithEdges)
     else
       graphHelper.createGraphFromData(asiaData)
 
@@ -155,7 +206,12 @@ app.get('/map', function (req, res) {
     console.log(util.inspect(pageCountMessage));
     console.log('end');
 
-    res.render('../use/map.html', { pageCountMessage : pageCountMessage});
+    var output = ''
+    for (var i = shortestPath.length - 1; i >= 0; i--) {
+      output += shortestPath[i].data.x + ' ' shortestPath[i].data.y + ', ' 
+    }
+
+    res.render('map.html', { output : output});
   }
 });
 
