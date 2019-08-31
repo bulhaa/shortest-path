@@ -153,13 +153,13 @@ app.get('/', function (req, res) {
       graphHelper.createGraphFromData(asiaData)
 
     console.log('test');
-    console.log(pageCountMessage);
-    console.log(util.inspect(pageCountMessage));
+    console.log(shortestPath);
+    console.log(util.inspect(shortestPath));
     console.log('end');
 
     var output = ''
     for (var i = shortestPath.length - 1; i >= 0; i--) {
-      output += shortestPath[i].data.x + ' ' shortestPath[i].data.y + ', ' 
+      output += shortestPath[i].data.x + ' ' + shortestPath[i].data.y + ', ' 
     }
 
     res.render('map.html', { output : output});
@@ -190,9 +190,13 @@ app.get('/map', function (req, res) {
     var showMap = 0
     var asiaData = nodesOnly.data
 
+    console.log('test');
+    console.log(req);
+    console.log(util.inspect(req));
+    console.log('end');
 
 
-    mapHelpers.setupMap([req.params.startx, req.params.starty], [req.params.endx, req.params.endy], showMap)
+    mapHelpers.setupMap(req.query.sp, req.query.ep, showMap)
     mapHelpers.setData(asiaData, showMap)
     if(showMap)
       mapHelpers.setupRouteLayer()
@@ -201,15 +205,15 @@ app.get('/map', function (req, res) {
     else
       graphHelper.createGraphFromData(asiaData)
 
-    console.log('test');
-    console.log(pageCountMessage);
-    console.log(util.inspect(pageCountMessage));
-    console.log('end');
 
-    var output = ''
+    var output = '{"nodes":['
     for (var i = shortestPath.length - 1; i >= 0; i--) {
-      output += shortestPath[i].data.x + ' ' shortestPath[i].data.y + ', ' 
+      output += '{"x":'+ shortestPath[i].data.x + ',"y":' + shortestPath[i].data.y + '}'
+      if(i != 0)
+        output += ','
     }
+
+    output += ']}'
 
     res.render('map.html', { output : output});
   }
