@@ -37,5 +37,8 @@
   "bugs": {
     "url": "http://github.com/sclorg/nodejs-ex/issues"
   },
-  "homepage": "http://github.com/sclorg/nodejs-ex"
+  "homepage": "http://github.com/sclorg/nodejs-ex",
+  "devDependencies": {
+    "webpack": "^4.39.3"
+  }
 }

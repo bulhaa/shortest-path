@@ -5,7 +5,7 @@ const webpack = require('webpack')
 module.exports = env => {
 
     return {
-        entry: '../use/src/mapHelpers.js',
+        entry: '../use/src/main.js',
         mode: 'development',
         output: {
             path: __dirname,

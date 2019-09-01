@@ -1,9 +1,20 @@
-import Vue from 'vue'
-import App from './App.vue'
-import VueWorker from 'vue-worker'
+import createGraph from 'ngraph.graph'
+import { setupMap, setData, setupRouteLayer } from './mapHelpers'
+import { loadGraphFromFile, createGraphFromData } from './graphHelper'
 
-Vue.use(VueWorker)
-new Vue({
-  el: '#app',
-  render: h => h(App)
-})
+
+
+
+
+// import Vue from 'vue'
+// import App from './App.vue'
+// import VueWorker from 'vue-worker'
+
+// Vue.use(VueWorker)
+// new Vue({
+//   el: '#app',
+//   render: h => h(App)
+// })
+
+
+

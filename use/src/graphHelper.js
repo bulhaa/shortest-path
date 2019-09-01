@@ -1,7 +1,7 @@
 import fromjson from 'ngraph.fromjson'
 import path from 'ngraph.path'
 
-import Worker from './graphCreation.worker.js'
+// import Worker from './graphCreation.worker.js'
 
 import { setPathFinder, setGraph, clearGraphRelatedData } from './mapHelpers'
 
@@ -23,15 +23,25 @@ export function loadGraphFromFile (dataWithEdges) {
   //   return findRouteThroughGraph(graph)
   // }
   clearGraphRelatedData()
-  const startLoad = window.performance.now()
+  // if(typeof window != "undefined")
+  //   const startLoad = window.performance.now()
   dataJSON = dataWithEdges
+
+  var startCreation = new Date()
+
   const graph = fromjson(dataJSON)
+
+  var endCreation = new Date() - startCreation
+  console.log('Time to find path: ', endCreation)
+
   dataJSON = dataJSON.substring(0, dataJSON.length-2)
   dataJSON = dataJSON.substring(10, dataJSON.length)
   console.log(graph.getNodesCount())
-  const endLoad = window.performance.now()
-  const timeTakenToLoad = parseInt(endLoad - startLoad)
-  console.log('Time to load: ', timeTakenToLoad)
+  // if(typeof window != "undefined"){
+  //   const endLoad = window.performance.now()
+  //   const timeTakenToLoad = parseInt(endLoad - startLoad)
+  //   console.log('Time to load: ', timeTakenToLoad)
+  // }
 
   setGraph(graph)
   return findRouteThroughGraph(graph)
@@ -52,13 +62,16 @@ export function createGraphFromData (data) {
   clearGraphRelatedData()
   const worker = new Worker() //eslint-disable-line
 
-  const startCreation = window.performance.now()
+  // if(typeof window != "undefined")
+  //   const startCreation = window.performance.now()
   worker.postMessage(data)
 
   worker.onmessage = function (e) {
-    const endCreation = window.performance.now()
-    const timeTakenToCreate = parseInt(endCreation - startCreation)
-    console.log('Time to construct: ', timeTakenToCreate)
+    // if(typeof window != "undefined"){
+    //   const endCreation = window.performance.now()
+    //   const timeTakenToCreate = parseInt(endCreation - startCreation)
+    //   console.log('Time to construct: ', timeTakenToCreate)
+    // }
     const graph = fromjson(e.data)
     console.log(graph.getNodesCount())
     setGraph(graph)
@@ -78,12 +91,15 @@ export function findRouteThroughGraph (graph) {
 }
 
 export function updateGraphWithDynamicJSON (dynamicNodesJSON, dynamicEdgesJSON) {
-    const startLoad = window.performance.now()
+    // if(typeof window != "undefined")
+    //   const startLoad = window.performance.now()
     const graph = fromjson('{"nodes":[' + dynamicNodesJSON + dataJSON + dynamicEdgesJSON + "]}")
     console.log(graph.getNodesCount())
-    const endLoad = window.performance.now()
-    const timeTakenToLoad = parseInt(endLoad - startLoad)
-    console.log('Time to load: ', timeTakenToLoad)
+    // if(typeof window != "undefined"){
+    //   const endLoad = window.performance.now()
+    //   const timeTakenToLoad = parseInt(endLoad - startLoad)
+    //   console.log('Time to load: ', timeTakenToLoad)
+    // }
 
     setGraph(graph)
     findRouteThroughGraph(graph)

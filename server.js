@@ -89,6 +89,14 @@ var initDb = function(callback) {
   });
 };
 
+
+
+    console.log('reading');
+var asiaData = nodesOnly.data
+var withEdges = dataWithEdges.dataWithEdges + ''
+    console.log(asiaData.features.length)
+    mapHelpers.setData(asiaData, 0)
+    graphHelper.loadGraphFromFile(withEdges)
 // app.configure(function () {
 //     // app.set('port', process.env.PORT || 3000);
 //     // app.use(express.logger('dev'));  /* 'default', 'short', 'tiny', 'dev' */
@@ -148,7 +156,7 @@ app.get('/', function (req, res) {
     if(showMap)
       mapHelpers.setupRouteLayer()
     if(file)
-      var shortestPath = graphHelper.loadGraphFromFile(dataWithEdges.dataWithEdges)
+      var shortestPath = graphHelper.loadGraphFromFile(withEdges)
     else
       graphHelper.createGraphFromData(asiaData)
 
@@ -172,41 +180,43 @@ app.get('/', function (req, res) {
 app.get('/map', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    var col = db.collection('counts');
-    // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      if (err) {
-        console.log('Error running count. Message:\n'+err);
-      }
-      res.render('index.html', { pageCountMessage : count });
-    });
-  } else {
+  // if (!db) {
+  //   initDb(function(err){});
+  // }
+  // if (db) {
+  //   var col = db.collection('counts');
+  //   // Create a document with request IP and current time of request
+  //   col.insert({ip: req.ip, date: Date.now()});
+  //   col.count(function(err, count){
+  //     if (err) {
+  //       console.log('Error running count. Message:\n'+err);
+  //     }
+  //     res.render('index.html', { pageCountMessage : count });
+  //   });
+  // } else {
     var file = 1
     var showMap = 0
-    var asiaData = nodesOnly.data
+    var output = ''
 
-    console.log('test');
-    console.log(req);
-    console.log(util.inspect(req));
-    console.log('end');
+    // console.log('test');
+    // console.log(withEdges);
+    // console.log(util.inspect(req));
+    // console.log('end');
 
 
-    mapHelpers.setupMap(req.query.sp, req.query.ep, showMap)
-    mapHelpers.setData(asiaData, showMap)
+    var shortestPath = mapHelpers.setupMap(req.query.sp, req.query.ep, showMap)
     if(showMap)
       mapHelpers.setupRouteLayer()
-    if(file)
-      var shortestPath = graphHelper.loadGraphFromFile(dataWithEdges.dataWithEdges)
-    else
-      graphHelper.createGraphFromData(asiaData)
+  var startCreation = new Date()
+    // if(file)
+    //   var shortestPath = graphHelper.loadGraphFromFile(withEdges)
+    // else
+    //   graphHelper.createGraphFromData(asiaData)
+  var endCreation = new Date() - startCreation
+  console.log('Time to find path: ', endCreation)
 
 
-    var output = '{"nodes":['
+    output += '{"nodes":['
     for (var i = shortestPath.length - 1; i >= 0; i--) {
       output += '{"x":'+ shortestPath[i].data.x + ',"y":' + shortestPath[i].data.y + '}'
       if(i != 0)
@@ -216,7 +226,7 @@ app.get('/map', function (req, res) {
     output += ']}'
 
     res.render('map.html', { output : output});
-  }
+  // }
 });
 
 

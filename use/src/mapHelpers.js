@@ -64,14 +64,14 @@ export function setupMap (start, end, showMap) {
 
 
 
-    var start = [73.18628847599,0.6605490743581441]
-    var end = [73.169002590224,0.6689311701630487]
+    // var start = [73.18628847599,0.6605490743581441]
+    // var end = [73.169002590224,0.6689311701630487]
 
 
 
 
-    var start = [73.234375,0.14453119039535522]
-    var end = [73.169002590224,0.6689311701630487]
+    // var start = [73.234375,0.14453119039535522]
+    // var end = [73.169002590224,0.6689311701630487]
   }
 
 
@@ -123,7 +123,8 @@ export function setupMap (start, end, showMap) {
     startMarker.on('drag', updatePathMarkers)
     endMarker.on('drag', updatePathMarkers)
     selectionLayer = L.layerGroup([]).addTo(map)
-  }
+  }else
+    return updatePathMarkers()
 }
 
 export function setData (data, showMap) {
@@ -184,7 +185,7 @@ export function setData (data, showMap) {
   //   pointsArr.push(points1.slice(0))
   // }
 
-  loadTurfPolygons(data)
+  // loadTurfPolygons(data)
 
 
 
@@ -1066,7 +1067,6 @@ export function setupRouteLayer () {
 
 export function setPathFinder (pathGraph) {
   pathFinder = pathGraph
-  return updatePathMarkers()
 }
 
 function updatePathMarkers () {
@@ -1076,7 +1076,6 @@ function updatePathMarkers () {
   }
 
   updatingPathMarkers = true
-  const startCreation = window.performance.now()
 
   if(routeLayer != null)
     routeLayer.setLatLngs([])
@@ -1091,11 +1090,12 @@ function updatePathMarkers () {
   var dynamicEdgesJSON = getDynamicEdgesJSON(startPoint, endPoint)
   updateGraphWithDynamicJSON(dynamicNodesJSON, dynamicEdgesJSON)
 
+  var startCreation = new Date()
   if(routeLayer != null){
     var nearestStart = turf.nearestPoint(startMarker.toGeoJSON(), points)
     var nearestEnd = turf.nearestPoint(endMarker.toGeoJSON(), points)
-    nearestStart = startMarker.toGeoJSON()
-    nearestEnd = endMarker.toGeoJSON()
+    // nearestStart = startMarker.toGeoJSON()
+    // nearestEnd = endMarker.toGeoJSON()
     foundPath = pathFinder.find(createNodeId(nearestStart), createNodeId(nearestEnd))
     drawPath()
   }else{
@@ -1103,9 +1103,10 @@ function updatePathMarkers () {
   }
   console.log("\tvar start = ["+createNodeId2(startPoint)+"]\n\tvar end = ["+createNodeId2(endPoint)+"]\n\n")
 
-  const endCreation = window.performance.now()
-  const timeTakenToCreate = parseInt(endCreation - startCreation)
-  console.log('Time to find path: ', timeTakenToCreate)
+  var endCreation = new Date() - startCreation
+  console.log('Time to find path: ', endCreation)
+
+
 
   updatingPathMarkers = false
 
